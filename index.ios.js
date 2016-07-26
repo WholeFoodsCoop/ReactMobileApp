@@ -81,4 +81,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('WholeFoodsCoop', () => WholeFoodsCoop);
+AppRegistry.registerComponent('WholeFoodsCoopApp', () => WholeFoodsCoop);
