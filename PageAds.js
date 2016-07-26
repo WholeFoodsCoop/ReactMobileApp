@@ -17,7 +17,8 @@ export default class PageAds extends Component {
         this.state = {
             dataSource: this.ds.cloneWithRows([]),
             images: [],
-            level: 'top'
+            level: 'top',
+            currentList: []
         };
     }
 
@@ -29,7 +30,8 @@ export default class PageAds extends Component {
                 this.setState({
                     dataSource: this.ds.cloneWithRows(covers),
                     images: responseJSON,
-                    level: 'top'
+                    level: 'top',
+                    currentList: covers
                 });
             })
             .catch((error) => console.log(error));
@@ -39,11 +41,27 @@ export default class PageAds extends Component {
         this.getImagesAsync();
     }
 
+    reOrient() {
+        /**
+          Hack. State needs to change to trigger
+          re-rendering the ListView so swap in an
+          empty list then the current list again
+        */
+        var cur = this.state.currentList;
+        this.setState({
+            dataSource: this.ds.cloneWithRows([])
+        });
+        this.setState({
+            dataSource: this.ds.cloneWithRows(cur)
+        });  
+    }
+
     goToTop() {
         var covers = this.state.images.map((i) => i[0]);
         this.setState({
             dataSource: this.ds.cloneWithRows(covers),
-            level: 'top'
+            level: 'top',
+            currentList: covers
         });
     }
 
@@ -59,7 +77,8 @@ export default class PageAds extends Component {
         list.push('Go Back');
         this.setState({
             dataSource: this.ds.cloneWithRows(list),
-            level: 'sub'
+            level: 'sub',
+            currentList: list
         }); 
     }
 
@@ -98,7 +117,8 @@ export default class PageAds extends Component {
 
     render() {
         return (
-            <View style={{flex: 1, alignItems: 'center'}}>
+            <View style={{flex: 1, alignItems: 'center'}}
+                onLayout={this.reOrient.bind(this)}>
                 <Text>Current Sales Flyers</Text>
                 <ListView
                     dataSource={this.state.dataSource}
