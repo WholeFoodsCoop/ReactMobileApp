@@ -19,7 +19,7 @@ import PageHome from './PageHome.js';
 import PageMenu from './PageMenu.js';
 import PageLocations from './PageLocations.js';
 
-class AwesomeProject extends Component {
+class WholeFoodsCoop extends Component {
 
     constructor(props) {
         super(props);
@@ -81,4 +81,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
+AppRegistry.registerComponent('WholeFoodsCoop', () => WholeFoodsCoop);
