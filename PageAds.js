@@ -119,7 +119,6 @@ export default class PageAds extends Component {
         return (
             <View style={{flex: 1, alignItems: 'center'}}
                 onLayout={this.reOrient.bind(this)}>
-                <Text>Current Sales Flyers</Text>
                 <ListView
                     dataSource={this.state.dataSource}
                     renderRow={this.renderImg.bind(this)}

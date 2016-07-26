@@ -4,17 +4,29 @@ import {
     View, 
     Text,
     TouchableHighlight,
-    Dimensions
+    Dimensions,
+    StyleSheet
 } from 'react-native';
+
+var styles = StyleSheet.create({
+    mapBox: {
+        flex: 1,
+        borderWidth: 1,
+        borderRadius: 3,
+        borderColor: '#000',
+        borderStyle: 'solid'
+    }
+});
 
 import MapView from 'react-native-maps';
 
 export default class PageLocations extends Component {
     render() {
-        var {w, h} = Dimensions.get('window')
+        var {width, height} = Dimensions.get('window')
+        var w = width - 10;
         return (
             <MapView 
-                style={{flex:1, width: 350}}
+                style={[styles.mapBox, {width: w}]}
                 initialRegion={{
                     latitude: 46.776618,
                     longitude: -92.124954,

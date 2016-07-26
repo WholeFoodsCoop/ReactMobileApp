@@ -14,14 +14,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 var styles = StyleSheet.create({
     date: {
-        color: 'orange'
+        color: '#FF5800'
     },
     time: {
-        paddingLeft: 8,
-        color: 'green'
+        paddingLeft: 7,
+        color: '#673F17'
     },
     item: {
-        paddingLeft: 8,
+        paddingLeft: 12,
     },
     box: {
         padding: 5,

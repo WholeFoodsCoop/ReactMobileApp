@@ -21,7 +21,7 @@ var styles = StyleSheet.create({
         padding: 3,
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#FFAD33'
+        backgroundColor: '#FF5800'
     }
 });
 
@@ -33,29 +33,29 @@ export default class NavBar extends Component {
                 <TouchableHighlight style={styles.btn}
                     onPress={this.props.home}>
                     <View style={{flex: 1, alignItems: 'center'}}>
-                        <Icon name="home" size={20} />
-                        <Text>Home</Text>
+                        <Icon name="home" size={20} color="#fff" />
+                        <Text style={{color:'#fff'}}>Home</Text>
                     </View>
                 </TouchableHighlight>
                 <TouchableHighlight style={styles.btn}
                     onPress={this.props.loc}>
                     <View style={{flex: 1, alignItems: 'center'}}>
-                        <Icon name="globe" size={20} />
-                        <Text>Stores</Text>
+                        <Icon name="globe" size={20} color="#fff" />
+                        <Text style={{color:'#fff'}}>Stores</Text>
                     </View>
                 </TouchableHighlight>
                 <TouchableHighlight style={styles.btn}
                     onPress={this.props.ads}>
                     <View style={{flex: 1, alignItems: 'center'}}>
-                        <Icon name="usd" size={20} />
-                        <Text>Sales</Text>
+                        <Icon name="usd" size={20} color="#fff" />
+                        <Text style={{color:'#fff'}}>Sales</Text>
                     </View>
                 </TouchableHighlight>
                 <TouchableHighlight style={styles.btn}
                     onPress={this.props.menu}>
                     <View style={{flex: 1, alignItems: 'center'}}>
-                        <Icon name="cutlery" size={20} />
-                        <Text>Menu</Text>
+                        <Icon name="cutlery" size={20} color="#fff" />
+                        <Text style={{color:'#fff'}}>Menu</Text>
                     </View>
                 </TouchableHighlight>
             </View>
