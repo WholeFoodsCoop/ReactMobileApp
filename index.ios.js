@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  Dimensions
 } from 'react-native';
 
 import NavBar from './NavBar.js';
@@ -53,13 +54,14 @@ class WholeFoodsCoop extends Component {
         } else {
             main = <PageHome />
         }
+        var {width, length} = Dimensions.get('window');
 
         return (
           <View style={styles.container}>
             <View style={{flex: .9, marginTop: 50}}>
                 {main}
             </View>
-            <View style={{flex: 0.1}}>
+            <View style={{flex: 0.1, backgroundColor: '#673F17', width: width}}>
                 <NavBar 
                     home={this.goHome.bind(this)} 
                     loc={this.goLoc.bind(this)} 
