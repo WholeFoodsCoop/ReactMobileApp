@@ -12,3 +12,5 @@ Run:
 
 ## CUSTOMIZING
 Change settings.json as needed
+
+Browsing the API URLs will show the expected formatting but you're on your own to implement equivalents for your content.
