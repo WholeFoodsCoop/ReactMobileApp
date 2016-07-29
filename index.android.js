@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  Dimensions
 } from 'react-native';
 
 import NavBar from './NavBar.js';
@@ -19,7 +20,9 @@ import PageHome from './PageHome.js';
 import PageMenu from './PageMenu.js';
 import PageLocations from './PageLocations.js';
 
-class AwesomeProject extends Component {
+import settings from './settings.json';
+
+class WholeFoodsCoop extends Component {
 
     constructor(props) {
         super(props);
@@ -53,13 +56,14 @@ class AwesomeProject extends Component {
         } else {
             main = <PageHome />
         }
+        var {width, length} = Dimensions.get('window');
 
         return (
           <View style={styles.container}>
             <View style={{flex: .9, marginTop: 50}}>
                 {main}
             </View>
-            <View style={{flex: 0.1}}>
+            <View style={{flex: 0.1, backgroundColor: settings.theme.navColor, width: width}}>
                 <NavBar 
                     home={this.goHome.bind(this)} 
                     loc={this.goLoc.bind(this)} 
@@ -77,8 +81,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#70DB70',
+    backgroundColor: settings.theme.backgroundColor
   },
 });
 
-AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
+AppRegistry.registerComponent('WholeFoodsCoopApp', () => WholeFoodsCoop);

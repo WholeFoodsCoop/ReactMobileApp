@@ -1,4 +1,4 @@
-package com.wholefoodscoopapp;
+package coop.wholefoods.app;
 
 import com.facebook.react.ReactActivity;
 
