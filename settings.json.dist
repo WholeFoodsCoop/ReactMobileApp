@@ -15,6 +15,7 @@
         mapLong: -92.124954,
         mapLatDelta: 0.13,
         mapLongDelta: 0.09,
+        googleApiKey: "AIzaSyCXoIN_NjUxLFpeO9Ot-8QW5fsyBR8Kras"
         markers: [
             {
                 lat: 46.795624,
