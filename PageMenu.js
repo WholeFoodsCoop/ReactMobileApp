@@ -12,13 +12,15 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import settings from './settings.json';
+
 var styles = StyleSheet.create({
     date: {
-        color: '#FF5800'
+        color: settings.menu.dateColor
     },
     time: {
         paddingLeft: 7,
-        color: '#673F17'
+        color: settings.menu.timeColor
     },
     item: {
         paddingLeft: 12,

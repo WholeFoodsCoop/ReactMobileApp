@@ -10,6 +10,8 @@ import {
     StyleSheet
 } from 'react-native';
 
+import settings from './settings.json';
+
 export default class PageAds extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +25,7 @@ export default class PageAds extends Component {
     }
 
     getImagesAsync() {
-        return fetch('http://store.wholefoods.coop/api/flyers/')
+        return fetch(settings.sales.apiURL)
             .then((response) => response.json())
             .then((responseJSON) => {
                 var covers = responseJSON.map((imgs) => imgs[0]);
@@ -88,9 +90,9 @@ export default class PageAds extends Component {
         var h = Math.round(w * (11.0/8.5));
         if (this.state.level == 'top') {
             return (
-                <TouchableHighlight onPress={() => this.goDownLevel(url)}>
+                <TouchableHighlight onPress={() => this.goDownLevel(url)} style={{marginBottom: 5}}>
                     <Image
-                        style={{width: w, height: h}}
+                        style={{width: w, height: h, margin: 5, padding: 5}}
                         source={{uri: url}}
                         resizeMode="contain"
                     />
@@ -106,7 +108,7 @@ export default class PageAds extends Component {
             return (
                 <View>
                 <Image
-                    style={{width: w, height: h, padding: 5}}
+                    style={{width: w, height: h, padding: 5, margin: 5}}
                     source={{uri: url}}
                     resizeMode="contain"
                 />

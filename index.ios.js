@@ -20,6 +20,8 @@ import PageHome from './PageHome.js';
 import PageMenu from './PageMenu.js';
 import PageLocations from './PageLocations.js';
 
+import settings from './settings.json';
+
 class WholeFoodsCoop extends Component {
 
     constructor(props) {
@@ -61,7 +63,7 @@ class WholeFoodsCoop extends Component {
             <View style={{flex: .9, marginTop: 50}}>
                 {main}
             </View>
-            <View style={{flex: 0.1, backgroundColor: '#673F17', width: width}}>
+            <View style={{flex: 0.1, backgroundColor: settings.theme.navColor, width: width}}>
                 <NavBar 
                     home={this.goHome.bind(this)} 
                     loc={this.goLoc.bind(this)} 
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#7AB800',
+    backgroundColor: settings.theme.backgroundColor
   },
 });
 

@@ -9,6 +9,8 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import settings from './settings.json';
+
 var styles = StyleSheet.create({
     btn: {
         width: 50,
@@ -21,7 +23,7 @@ var styles = StyleSheet.create({
         padding: 3,
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#FF5800'
+        backgroundColor: settings.theme.navButtonColor
     }
 });
 

@@ -1,0 +1,41 @@
+{
+    theme: {
+        backgroundColor: "#7AB800",
+        navButtonColor: "#FF5800",
+        navColor: "#673F17"
+    },
+    home: {
+        slogan: "Duluth's Co-op Since 1970",
+        phone: "218-728-0884",
+        website: "http://wholefoods.coop",
+        feedback: "app@wholefoods.coop"
+    },
+    locations: {
+        mapLat: 46.776618,
+        mapLong: -92.124954,
+        mapLatDelta: 0.13,
+        mapLongDelta: 0.09,
+        markers: [
+            {
+                lat: 46.795624,
+                long: -92.094133,
+                title: "Whole Foods Co-op Hillside",
+                subtitle: "610 E 4th St, Duluth, MN 55805"
+            },
+            {
+                lat: 46.746594,
+                long: -92.156873,
+                title: "Whole Foods Co-op Denfeld",
+                subtitle: "4426 Grand Ave, Duluth, MN 55807"
+            }
+        ] 
+    },
+    sales: {
+        apiURL: "http://store.wholefoods.coop/api/flyers/"
+    },
+    menu: {
+        apiURL: "http://store.wholefoods.coop/api/menu/",
+        dateColor: "#FF5800",
+        timeColor: "#673F17"
+    }
+}
