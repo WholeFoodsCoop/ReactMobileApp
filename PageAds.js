@@ -6,18 +6,30 @@ import {
     TouchableHighlight,
     ListView,
     Dimensions,
-    Image,
     StyleSheet
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Image from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Bar';
+
 import settings from './settings.json';
+
+var styles = StyleSheet.create({
+    backBtn: {
+        fontSize: 20
+    },
+    loading: {
+        fontSize: 20
+    }
+});
 
 export default class PageAds extends Component {
     constructor(props) {
         super(props);
         this.ds = new ListView.DataSource({rowHasChanged: (r1,r2) => r1 !== r2});
         this.state = {
-            dataSource: this.ds.cloneWithRows([]),
+            dataSource: this.ds.cloneWithRows(["Loading"]),
             images: [],
             level: 'top',
             currentList: []
@@ -84,26 +96,42 @@ export default class PageAds extends Component {
         }); 
     }
 
+    textToIcon(text) {
+        if (text == 'Go Back') {
+            return (
+                <TouchableHighlight onPress={this.goToTop.bind(this)}>
+                    <View style={{flex: 1, flexDirection: 'row'}}>
+                        <Icon name="chevron-left" size={20} />
+                        <Text style={styles.backBtn}> {text}</Text>
+                    </View>
+                </TouchableHighlight>
+            );
+        } else {
+            return (
+                <View>
+                    <Text style={styles.loading}>{text}</Text>
+                </View>
+            );
+        }
+    } 
+
     renderImg(url) {
         var {width, height} = Dimensions.get('window');
         var w = width - 50;
         var h = Math.round(w * (11.0/8.5));
-        if (this.state.level == 'top') {
+        if (url.substring(0,4) == 'http' && this.state.level == 'top') {
             return (
                 <TouchableHighlight onPress={() => this.goDownLevel(url)} style={{marginBottom: 5}}>
                     <Image
                         style={{width: w, height: h, margin: 5, padding: 5}}
                         source={{uri: url}}
                         resizeMode="contain"
+                        indicator={ProgressBar}
                     />
                 </TouchableHighlight>
             );
-        } else if (url == 'Go Back') {
-            return (
-                <TouchableHighlight onPress={this.goToTop.bind(this)}>
-                    <Text>{url}</Text>
-                </TouchableHighlight>
-            );
+        } else if (url.substring(0,4) != 'http') {
+            return this.textToIcon(url);
         } else {
             return (
                 <View>
@@ -111,6 +139,7 @@ export default class PageAds extends Component {
                     style={{width: w, height: h, padding: 5, margin: 5}}
                     source={{uri: url}}
                     resizeMode="contain"
+                    indicator={ProgressBar}
                 />
                 </View>
             );

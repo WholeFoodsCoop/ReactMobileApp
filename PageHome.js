@@ -57,6 +57,7 @@ export default class PageHome extends Component {
                      onPress={() => Linking.openURL(web).catch(err => console.log(err))}>
                         <Text style={styles.link}>{web}</Text>
                     </TouchableHighlight>
+                    <Text>Open 7am - 9pm</Text>
                     <Text>Beta!</Text>
                     <View style={{flexDirection:'row'}}>
                         <Text>Feedback:</Text>

@@ -42,7 +42,7 @@ export default class PageMenu extends Component {
         super(props);
         this.ds = new ListView.DataSource({rowHasChanged: (r1,r2) => r1 !== r2});
         this.state = {
-            dataSource: this.ds.cloneWithRows([]),
+            dataSource: this.ds.cloneWithRows(["Loading"]),
         }
     }
 
@@ -60,6 +60,9 @@ export default class PageMenu extends Component {
     }
 
     itemRow(row) {
+        if (!row.items) {
+            return (<Text>Loading</Text>);
+        }
         return (
             <View>
             <View style={styles.box}>

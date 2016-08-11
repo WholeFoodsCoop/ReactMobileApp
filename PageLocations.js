@@ -42,7 +42,9 @@ export default class PageLocations extends Component {
                         title={m.title}
                         description={m.subtitle}
                         key={m.lat+"x"+m.long}
-                    />);
+                        >
+                        </MapView.Marker>
+                    );
                 })}
             </MapView>
         );
