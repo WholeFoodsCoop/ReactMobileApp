@@ -432,7 +432,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 64P88ZQJF4;
+						DevelopmentTeam = 2MF9C3B8EH;
 					};
 				};
 			};
@@ -737,7 +737,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = coop.wholefoods.WholeFoodsCoopApp;
+				PRODUCT_BUNDLE_IDENTIFIER = coop.wholefoods.app;
 				PRODUCT_NAME = WholeFoodsCoopApp;
 				PROVISIONING_PROFILE = "";
 			};
@@ -763,7 +763,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = coop.wholefoods.WholeFoodsCoopApp;
+				PRODUCT_BUNDLE_IDENTIFIER = coop.wholefoods.app;
 				PRODUCT_NAME = WholeFoodsCoopApp;
 				PROVISIONING_PROFILE = "";
 			};
