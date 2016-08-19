@@ -60,6 +60,14 @@ export default class NavBar extends Component {
                         <Text style={{color:'#fff'}}>Menu</Text>
                     </View>
                 </TouchableHighlight>
+                <TouchableHighlight style={styles.btn}
+                    onPress={()=>this.props.page('list')}
+                    >
+                    <View style={{flex: 1, alignItems: 'center'}}>
+                        <Icon name="list" size={20} color="#fff" />
+                        <Text style={{color:'#fff'}}>List</Text>
+                    </View>
+                </TouchableHighlight>
             </View>
         );
     }

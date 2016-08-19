@@ -6,10 +6,30 @@ import {
     Image,
     TextInput,
     TouchableHighlight,
-    ListView
+    ListView,
+    Dimensions,
+    StyleSheet
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Autocomplete from 'react-native-autocomplete-input';
+import settings from './settings.json';
+
+var styles = StyleSheet.create({
+    btn: {
+        width: 50,
+        height: 50,
+        borderWidth: 1,
+        borderColor: '#000',
+        borderRadius: 3,
+        borderStyle: 'solid',
+        margin: 3,
+        padding: 3,
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: settings.theme.navButtonColor
+    }
+});
 
 export default class PageList extends Component {
 
@@ -18,16 +38,16 @@ export default class PageList extends Component {
         this.ds = new ListView.DataSource({rowHasChanged: (r1,r2) => r1 !== r2});
         this.state = {
             list: [],
-            options: {},
             dataSource: this.ds.cloneWithRows([]),
+            acItems: [],
+            query: ""
         }
     }
 
     search(term) {
+        this.setState({query: term});
         if (term.length < 3) {
-            this.setState({
-                dataSource: this.ds.cloneWithRows([])
-            });
+            this.setState({acItems: []});
             return;
         }
         fetch('http://store.wholefoods.coop/api/', {
@@ -42,9 +62,7 @@ export default class PageList extends Component {
             if (responseJSON.length > 20) {
                 responseJSON = responseJSON.slice(0, 20);
             }
-            this.setState({
-                dataSource: this.ds.cloneWithRows(responseJSON)
-            });
+            this.setState({ acItems: responseJSON });
         })
         .catch((error) => console.log(error));
     }
@@ -55,29 +73,92 @@ export default class PageList extends Component {
             line = row.brand + " " + line;
         }
         return (
+            <TouchableHighlight onPress={()=>this.setState({query: line, acItems: []})}>
             <View style={{flex: 1, flexDirection: 'row', alignItems: 'flex-start', padding: 2}}>
-                <Icon name="plus" size={10} />
                 <Text>{line}</Text>
+            </View>
+            </TouchableHighlight>
+        );
+    }
+
+    toggleMark(item) {
+        var newList = this.state.list.map(i => {
+            if (i.text != item) {
+                return i;
+            }
+
+            i.marked = i.marked ? false : true;
+            return i;
+        });
+        newDS = this.ds.cloneWithRows(newList);
+        this.setState({
+            list: newList,
+            dataSource: newDS
+        });
+    }
+
+    removeItem(item) {
+        var newList = this.state.list.filter(i => i.text != item);
+        newDS = this.ds.cloneWithRows(newList);
+        this.setState({
+            list: newList,
+            dataSource: newDS
+        });
+    }
+
+    listRow(row) {
+        var {width, height} = Dimensions.get('window');
+        var tw = width - 85;
+        var dec = row.marked ? 'line-through' : 'none';
+        return (
+            <View style={{flex: 1, flexDirection: "row"}}>
+                <TouchableHighlight onPress={() => this.toggleMark(row.text)}>
+                    <Icon style={{paddingRight: 15}} name="check-circle" size={30} />
+                </TouchableHighlight>
+                <Text style={{width:tw, fontSize: 20, textDecorationLine: dec}}>{row.text}</Text>
+                <TouchableHighlight onPress={() => this.removeItem(row.text)}>
+                    <Icon style={{marginRight: 10}} name="minus-circle" size={30} />
+                </TouchableHighlight>
             </View>
         );
     }
+
+    addItem(item) {
+        if (item == "") return false;
+        var newList = this.state.list;
+        newList.push({text: item, marked: false});
+        newDS = this.ds.cloneWithRows(newList);
+        this.setState({
+            dataSource: newDS,
+            list: newList,
+            query: ""
+        });
+    }
     
     render() {
+        var {width, height} = Dimensions.get('window');
         return (
-            <View style={{flex: 1, alignItems: 'center'}}>
-                <View> 
-                    <TextInput style={{height: 50, width: 250, borderColor: '#000', borderWidth:1}} 
-                        returnKeyType='search'
-                        placeholder='PLU or description'
-                        onChangeText={this.search.bind(this)} 
-                    />
-                </View>
-                <ListView style={{borderColor: '#000', borderWidth: 1, borderStyle: 'solid', width: 250}}
+            <View style={{flex: 1, width: width, alignItems: 'flex-start'}}>
+                <ListView
+                    style={{flex: 4, marginTop: 75, marginLeft: 10}}
                     dataSource={this.state.dataSource}
-                    renderRow={this.itemRow}
+                    renderRow={row => this.listRow(row)}
                     enableEmptySections={true}
-                    automaticallyAdjustContentInsets={false}
+                /> 
+                <Autocomplete
+                    containerStyle={{flex: 1, position: 'absolute', left: 0, right: 50, top: 5}}
+                    defaultValue={this.state.query}
+                    data={this.state.acItems}
+                    onChangeText={text => this.search(text)}
+                    renderItem={(item) => this.itemRow(item)}
                 />
+                <TouchableHighlight onPress={() => this.addItem(this.state.query)}
+                    style={{flex:1, position: 'absolute', right:5, top: 5}}>
+                    <View style={styles.btn}>
+                        <Icon name="plus" style={{color: 'white'}} size={20} />
+                        <Text style={{color:'white'}}>Add</Text>
+                    </View>
+                </TouchableHighlight>
             </View>
         );
     }

@@ -8,6 +8,7 @@
   "dependencies": {
     "react": "^15.2.0",
     "react-native": "^0.30.0",
+    "react-native-autocomplete-input": "github:l-urence/react-native-autocomplete-input",
     "react-native-image-progress": "^0.6.0",
     "react-native-maps": "^0.7.1",
     "react-native-progress": "^3.0.1",

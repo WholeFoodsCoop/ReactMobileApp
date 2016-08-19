@@ -19,6 +19,7 @@ import PageAds from './PageAds.js';
 import PageHome from './PageHome.js';
 import PageMenu from './PageMenu.js';
 import PageLocations from './PageLocations.js';
+import PageList from './PageList.js';
 
 import settings from './settings.json';
 
@@ -45,6 +46,10 @@ class WholeFoodsCoop extends Component {
         this.setState({page: 'menu'});
     }
 
+    goPage(p) {
+        this.setState({page:p});
+    }
+
     render() {
         var main;
         if (this.state.page == 'loc') {
@@ -53,6 +58,8 @@ class WholeFoodsCoop extends Component {
             main = <PageAds />
         } else if (this.state.page == 'menu') {
             main = <PageMenu />
+        } else if (this.state.page == 'list') {
+            main = <PageList />
         } else {
             main = <PageHome />
         }
@@ -69,6 +76,7 @@ class WholeFoodsCoop extends Component {
                     loc={this.goLoc.bind(this)} 
                     ads={this.goAds.bind(this)} 
                     menu={this.goMenu.bind(this)} 
+                    page={this.goPage.bind(this)}
                 />
             </View>
           </View>
