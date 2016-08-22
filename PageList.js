@@ -8,7 +8,8 @@ import {
     TouchableHighlight,
     ListView,
     Dimensions,
-    StyleSheet
+    StyleSheet,
+    AsyncStorage
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -28,6 +29,18 @@ var styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         backgroundColor: settings.theme.navButtonColor
+    },
+    list: {
+        backgroundColor: '#fff',
+        borderColor: '#000',
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderRadius: 4,
+        flex: 4,
+        marginTop: 75,
+        marginLeft: 5,
+        marginRight: 5,
+        padding: 3
     }
 });
 
@@ -36,12 +49,48 @@ export default class PageList extends Component {
     constructor(props) {
         super(props);
         this.ds = new ListView.DataSource({rowHasChanged: (r1,r2) => r1 !== r2});
+        this.saveTimeout = false;
         this.state = {
             list: [],
             dataSource: this.ds.cloneWithRows([]),
             acItems: [],
             query: ""
         }
+    }
+
+    componentDidMount() {
+        try {
+            AsyncStorage.getItem('@WfcApp:list').then((saved)=> {
+                var json = JSON.parse(saved);
+                if (Array.isArray(json)) {
+                    this.setState({
+                        list: json,
+                        dataSource: this.ds.cloneWithRows(json)
+                    });
+                }
+            });
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.saveTimeout) {
+            clearTimeout(this.saveTimeout);
+        }
+    }
+
+    saveList(list) {
+        if (this.saveTimeout) {
+            clearTimeout(this.saveTimeout);
+        } 
+        this.saveTimeout = setTimeout(() => {
+            try {
+                AsyncStorage.setItem('@WfcApp:list', JSON.stringify(list));
+            } catch (err) {
+                console.log(err);
+            }
+        }, 1000);
     }
 
     search(term) {
@@ -95,6 +144,7 @@ export default class PageList extends Component {
             list: newList,
             dataSource: newDS
         });
+        this.saveList(newList);
     }
 
     removeItem(item) {
@@ -104,20 +154,22 @@ export default class PageList extends Component {
             list: newList,
             dataSource: newDS
         });
+        this.saveList(newList);
     }
 
     listRow(row) {
         var {width, height} = Dimensions.get('window');
         var tw = width - 85;
         var dec = row.marked ? 'line-through' : 'none';
+        var checkColor = row.marked ? '#0c0' : '#ccc';
         return (
-            <View style={{flex: 1, flexDirection: "row"}}>
+            <View style={{flexDirection: "row", marginBottom: 3}}>
                 <TouchableHighlight onPress={() => this.toggleMark(row.text)}>
-                    <Icon style={{paddingRight: 15}} name="check-circle" size={30} />
+                    <Icon style={{paddingRight: 15}} color={checkColor} name="check-circle" size={30} />
                 </TouchableHighlight>
                 <Text style={{width:tw, fontSize: 20, textDecorationLine: dec}}>{row.text}</Text>
                 <TouchableHighlight onPress={() => this.removeItem(row.text)}>
-                    <Icon style={{marginRight: 10}} name="minus-circle" size={30} />
+                    <Icon style={{marginRight: 10}} color="#c00" name="minus-circle" size={30} />
                 </TouchableHighlight>
             </View>
         );
@@ -133,6 +185,7 @@ export default class PageList extends Component {
             list: newList,
             query: ""
         });
+        this.saveList(newList);
     }
     
     render() {
@@ -140,7 +193,7 @@ export default class PageList extends Component {
         return (
             <View style={{flex: 1, width: width, alignItems: 'flex-start'}}>
                 <ListView
-                    style={{flex: 4, marginTop: 75, marginLeft: 10}}
+                    style={[styles.list, {minWidth:(width-10)}]}
                     dataSource={this.state.dataSource}
                     renderRow={row => this.listRow(row)}
                     enableEmptySections={true}
