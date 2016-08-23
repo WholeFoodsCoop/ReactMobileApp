@@ -204,6 +204,7 @@ export default class PageList extends Component {
                     data={this.state.acItems}
                     onChangeText={text => this.search(text)}
                     renderItem={(item) => this.itemRow(item)}
+                    placeholder="Search for item"
                 />
                 <TouchableHighlight onPress={() => this.addItem(this.state.query)}
                     style={{flex:1, position: 'absolute', right:5, top: 5}}>
