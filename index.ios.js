@@ -11,7 +11,8 @@ import {
   Text,
   View,
   ScrollView,
-  Dimensions
+  Dimensions,
+  PushNotificationIOS
 } from 'react-native';
 
 import NavBar from './NavBar.js';
@@ -28,6 +29,23 @@ class WholeFoodsCoop extends Component {
     constructor(props) {
         super(props);
         this.state = {page: 'home'};
+    }
+
+    componentDidMount() {
+        PushNotificationIOS.addEventListener('register', function(token) {
+            console.log(token);
+            fetch(settings.pushRegistrationURL, {
+                method: "POST",
+                body: JSON.stringify({
+                    token: "token",
+                    platform: "iOS"
+                })
+            });
+        });
+        PushNotificationIOS.addEventListener('notification', function(n) {
+            console.log(n);
+        });
+        PushNotificationIOS.requestPermissions(); 
     }
 
     goHome() {
