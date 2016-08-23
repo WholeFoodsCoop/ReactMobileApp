@@ -104,14 +104,15 @@ export default class PageList extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({upc: term})
         }).then((response) => {
-            console.log(response);
             return response.json()
         })
         .then((responseJSON) => {
             if (responseJSON.length > 20) {
                 responseJSON = responseJSON.slice(0, 20);
             }
-            this.setState({ acItems: responseJSON });
+            if (this.state.query == term) {
+                this.setState({ acItems: responseJSON });
+            }
         })
         .catch((error) => console.log(error));
     }
