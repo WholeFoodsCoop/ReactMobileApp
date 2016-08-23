@@ -37,7 +37,7 @@ class WholeFoodsCoop extends Component {
             fetch(settings.pushRegistrationURL, {
                 method: "POST",
                 body: JSON.stringify({
-                    token: "token",
+                    token: token,
                     platform: "iOS"
                 })
             });
