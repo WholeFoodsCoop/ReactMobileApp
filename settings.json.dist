@@ -38,5 +38,6 @@
         apiURL: "http://store.wholefoods.coop/api/menu/",
         dateColor: "#FF5800",
         timeColor: "#673F17"
-    }
+    },
+    pushRegistrationURL: "http://store.wholefoods.coop/api/register"
 }
