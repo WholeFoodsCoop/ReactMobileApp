@@ -43,6 +43,7 @@ export default class PageMenu extends Component {
         this.ds = new ListView.DataSource({rowHasChanged: (r1,r2) => r1 !== r2});
         this.state = {
             dataSource: this.ds.cloneWithRows(["Loading"]),
+            list: ["Loading"]
         }
     }
 
@@ -50,10 +51,10 @@ export default class PageMenu extends Component {
         fetch('http://store.wholefoods.coop/api/menu/')
             .then((response) => response.json())
             .then((responseJSON) => {
-                console.log(responseJSON);
                 var list = Object.keys(responseJSON).map(k => responseJSON[k]);
                 this.setState({
-                    dataSource: this.ds.cloneWithRows(list)
+                    dataSource: this.ds.cloneWithRows(list),
+                    list: list
                 });
             })
             .catch(error => console.log(error)); 
@@ -86,7 +87,8 @@ export default class PageMenu extends Component {
     
     render() {
         return (
-            <View style={{flex: 1, alignItems: 'center'}}>
+            <View style={{flex: 1, alignItems: 'center'}}
+                onLayout={() => this.setState({dataSource:this.ds.cloneWithRows(this.state.list)})}>
                 <ListView 
                     dataSource={this.state.dataSource}
                     renderRow={this.itemRow}

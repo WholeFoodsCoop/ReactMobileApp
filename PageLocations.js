@@ -25,13 +25,23 @@ import MapLinks from './MapLinks.js';
 import settings from './settings.json';
 
 export default class PageLocations extends Component {
-    render() {
+
+    constructor(props) {
+        super(props);
+        this.state = { width: this.getWidth() }
+    }
+
+    getWidth() {
         var {width, height} = Dimensions.get('window')
-        var w = width - 10;
+        return width - 10;
+    }
+
+    render() {
         var ml = new MapLinks();
         return (
             <MapView 
-                style={[styles.mapBox, {width: w}]}
+                onLayout={()=>this.setState({width:this.getWidth()})}
+                style={[styles.mapBox, {width: this.state.width}]}
                 initialRegion={{
                     latitude: settings.locations.mapLat,
                     longitude: settings.locations.mapLong,

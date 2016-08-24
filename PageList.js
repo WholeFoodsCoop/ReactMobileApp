@@ -192,7 +192,8 @@ export default class PageList extends Component {
     render() {
         var {width, height} = Dimensions.get('window');
         return (
-            <View style={{flex: 1, width: width, alignItems: 'flex-start'}}>
+            <View style={{flex: 1, width: width, alignItems: 'flex-start'}}
+                onLayout={() => this.setState({dataSource:this.ds.cloneWithRows(this.state.list)})}>
                 <ListView
                     style={[styles.list, {minWidth:(width-10)}]}
                     dataSource={this.state.dataSource}
