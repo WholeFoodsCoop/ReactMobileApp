@@ -31,9 +31,13 @@ class WholeFoodsCoop extends Component {
         this.state = {page: 'home'};
     }
 
+    componentWillUnmount() {
+        PushNotificationIOS.removeEventListener('register');
+        PushNotificationIOS.removeEventListener('notification');
+    }
+
     componentDidMount() {
         PushNotificationIOS.addEventListener('register', function(token) {
-            console.log(token);
             fetch(settings.pushRegistrationURL, {
                 method: "POST",
                 body: JSON.stringify({
@@ -42,8 +46,11 @@ class WholeFoodsCoop extends Component {
                 })
             });
         });
-        PushNotificationIOS.addEventListener('notification', function(n) {
-            console.log(n);
+        PushNotificationIOS.addEventListener('notification', (n) => {
+            PushNotificationIOS.setApplicationIconNumber(0);
+            if (n.getMessage().toLowerCase().indexOf("sale" != -1)) {
+                this.goPage('ads');
+            }
         });
         PushNotificationIOS.requestPermissions(); 
     }

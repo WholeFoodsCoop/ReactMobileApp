@@ -23,11 +23,33 @@ import PageList from './PageList.js';
 
 import settings from './settings.json';
 
+var PushNotification = require('react-native-push-notification');
+
 class WholeFoodsCoop extends Component {
 
     constructor(props) {
         super(props);
         this.state = {page: 'home'};
+    }
+
+    componentDidMount() {
+        PushNotification.configure({
+            onRegister: function(token) {
+                fetch(settings.pushRegistrationURL, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        token: token,
+                        platform: "android"
+                    })
+                });
+            },
+            onNotification: (n) => {
+                if (n.getMessage().toLowerCase().indexOf("sale" != -1)) {
+                    this.goPage('ads');
+                }
+            },
+            senderID: settings.gcmSenderID
+        });
     }
 
     goHome() {
