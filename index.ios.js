@@ -92,10 +92,10 @@ class WholeFoodsCoop extends Component {
 
         return (
           <View style={styles.container}>
-            <View style={{flex: .9, marginTop: 50}}>
+            <View style={{flex: 1, marginTop: 50}}>
                 {main}
             </View>
-            <View style={{flex: 0.1, backgroundColor: settings.theme.navColor, width: width}}>
+            <View style={{position: "absolute", bottom: 0, height: 65, backgroundColor: settings.theme.navColor, width: width}}>
                 <NavBar 
                     home={this.goHome.bind(this)} 
                     loc={this.goLoc.bind(this)} 
