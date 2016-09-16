@@ -59,11 +59,11 @@ export default class PageLocations extends Component {
                         >
                             <MapView.Callout style={{flex:1, position: 'relative', width: 200}}>
                                 <View>
-                                    <Text style={{fontSize: 14}}>{m.title}</Text>
+                                    <Text allowFontScaling={false} style={{fontSize: 14}}>{m.title}</Text>
                                     <TouchableHighlight
                                         onPress={() => Linking.openURL(ml.get(m.subtitle)).catch(err=>console.log(err))}
                                     >
-                                        <Text style={{fontSize: 12, color: 'blue', textDecorationLine: 'underline'}}>{m.subtitle}</Text>
+                                        <Text allowFontScaling={false} style={{fontSize: 12, color: 'blue', textDecorationLine: 'underline'}}>{m.subtitle}</Text>
                                     </TouchableHighlight>
                                 </View>
                             </MapView.Callout>
