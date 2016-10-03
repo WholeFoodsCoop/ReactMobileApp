@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import settings from './settings.json';
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     date: {
         color: settings.menu.dateColor
     },
@@ -51,7 +51,7 @@ export default class PageMenu extends Component {
         fetch('http://store.wholefoods.coop/api/menu/')
             .then((response) => response.json())
             .then((responseJSON) => {
-                var list = Object.keys(responseJSON).map(k => responseJSON[k]);
+                const list = Object.keys(responseJSON).map(k => responseJSON[k]);
                 this.setState({
                     dataSource: this.ds.cloneWithRows(list),
                     list: list
@@ -69,8 +69,8 @@ export default class PageMenu extends Component {
             <View style={styles.box}>
                 <Text style={styles.date}>{row.date}</Text>
                 {row.items.map(item => {
-                    var isTime = (item.indexOf('AM') > -1 || item.indexOf('PM') > -1);
-                    var id = row.date + '::' + item;
+                    const isTime = (item.indexOf('AM') > -1 || item.indexOf('PM') > -1);
+                    const id = row.date + '::' + item;
                     return (
                         <Text 
                             style={isTime ? styles.time : styles.item}

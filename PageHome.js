@@ -12,7 +12,7 @@ import {
 
 import settings from './settings.json';
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     logo: {
         borderColor: '#000',
         borderWidth: 1,
@@ -36,11 +36,11 @@ var styles = StyleSheet.create({
 
 export default class PageHome extends Component {
     render() {
-        var {width, height} = Dimensions.get('window');
-        var w = width - 20;
-        var h = w * (632/620);
-        var ph = settings.home.phone.substring(0, 2) !== "1-" ? "1-" + settings.home.phone : settings.phone.home;
-        var web = settings.home.website.substring(0, 4) !== "http" ? "http://" + settings.home.website : settings.home.website;
+        const {width, height} = Dimensions.get('window');
+        const w = width - 20;
+        const h = w * (632/620);
+        const ph = settings.home.phone.substring(0, 2) !== "1-" ? "1-" + settings.home.phone : settings.phone.home;
+        const web = settings.home.website.substring(0, 4) !== "http" ? "http://" + settings.home.website : settings.home.website;
         return (
             <View style={{flex: 1, alignItems: 'center'}}>
                 <Image source={require("./img/logo.png")}

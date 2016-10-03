@@ -9,7 +9,7 @@ import {
     Linking
 } from 'react-native';
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     mapBox: {
         flex: 1,
         borderWidth: 1,
@@ -32,12 +32,12 @@ export default class PageLocations extends Component {
     }
 
     getWidth() {
-        var {width, height} = Dimensions.get('window')
+        const {width, height} = Dimensions.get('window')
         return width - 10;
     }
 
     render() {
-        var ml = new MapLinks();
+        const ml = new MapLinks();
         return (
             <MapView 
                 onLayout={()=>this.setState({width:this.getWidth()})}

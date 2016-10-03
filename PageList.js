@@ -16,7 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Autocomplete from 'react-native-autocomplete-input';
 import settings from './settings.json';
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     btn: {
         width: 50,
         height: 50,
@@ -61,7 +61,7 @@ export default class PageList extends Component {
     componentDidMount() {
         try {
             AsyncStorage.getItem('@WfcApp:list').then((saved)=> {
-                var json = JSON.parse(saved);
+                const json = JSON.parse(saved);
                 if (Array.isArray(json)) {
                     this.setState({
                         list: json,
@@ -118,7 +118,7 @@ export default class PageList extends Component {
     }
 
     itemRow(row) {
-        var line = row.description;
+        let line = row.description;
         if (row.brand) {
             line = row.brand + " " + line;
         }
@@ -132,7 +132,7 @@ export default class PageList extends Component {
     }
 
     toggleMark(item) {
-        var newList = this.state.list.map(i => {
+        const newList = this.state.list.map(i => {
             if (i.text != item) {
                 return i;
             }
@@ -149,7 +149,7 @@ export default class PageList extends Component {
     }
 
     removeItem(item) {
-        var newList = this.state.list.filter(i => i.text != item);
+        const newList = this.state.list.filter(i => i.text != item);
         newDS = this.ds.cloneWithRows(newList);
         this.setState({
             list: newList,
@@ -159,10 +159,10 @@ export default class PageList extends Component {
     }
 
     listRow(row) {
-        var {width, height} = Dimensions.get('window');
-        var tw = width - 85;
-        var dec = row.marked ? 'line-through' : 'none';
-        var checkColor = row.marked ? '#0c0' : '#ccc';
+        const {width, height} = Dimensions.get('window');
+        const tw = width - 85;
+        const dec = row.marked ? 'line-through' : 'none';
+        const checkColor = row.marked ? '#0c0' : '#ccc';
         return (
             <View style={{flexDirection: "row", marginBottom: 3}}>
                 <TouchableHighlight onPress={() => this.toggleMark(row.text)}>
@@ -178,7 +178,7 @@ export default class PageList extends Component {
 
     addItem(item) {
         if (item == "") return false;
-        var newList = this.state.list;
+        const newList = this.state.list;
         newList.push({text: item, marked: false});
         newDS = this.ds.cloneWithRows(newList);
         this.setState({
@@ -190,7 +190,7 @@ export default class PageList extends Component {
     }
     
     render() {
-        var {width, height} = Dimensions.get('window');
+        const {width, height} = Dimensions.get('window');
         return (
             <View style={{flex: 1, width: width, alignItems: 'flex-start'}}
                 onLayout={() => this.setState({dataSource:this.ds.cloneWithRows(this.state.list)})}>

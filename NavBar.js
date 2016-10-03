@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import settings from './settings.json';
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     btn: {
         width: 50,
         height: 50,
@@ -33,28 +33,28 @@ export default class NavBar extends Component {
         return (
             <View style={{flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                 <TouchableHighlight style={styles.btn}
-                    onPress={this.props.home}>
+                    onPress={()=>this.props.page('home')}>
                     <View style={{flex: 1, alignItems: 'center'}}>
                         <Icon name="home" size={20} color="#fff" />
                         <Text style={{color:'#fff'}}>Home</Text>
                     </View>
                 </TouchableHighlight>
                 <TouchableHighlight style={styles.btn}
-                    onPress={this.props.loc}>
+                    onPress={()=>this.props.page('loc')}>
                     <View style={{flex: 1, alignItems: 'center'}}>
                         <Icon name="globe" size={20} color="#fff" />
                         <Text style={{color:'#fff'}}>Stores</Text>
                     </View>
                 </TouchableHighlight>
                 <TouchableHighlight style={styles.btn}
-                    onPress={this.props.ads}>
+                    onPress={()=>this.props.page('ads')}>
                     <View style={{flex: 1, alignItems: 'center'}}>
                         <Icon name="usd" size={20} color="#fff" />
                         <Text style={{color:'#fff'}}>Sales</Text>
                     </View>
                 </TouchableHighlight>
                 <TouchableHighlight style={styles.btn}
-                    onPress={this.props.menu}>
+                    onPress={()=>this.props.page('menu')}>
                     <View style={{flex: 1, alignItems: 'center'}}>
                         <Icon name="cutlery" size={20} color="#fff" />
                         <Text style={{color:'#fff'}}>Menu</Text>

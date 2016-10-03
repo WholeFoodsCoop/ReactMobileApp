@@ -29,6 +29,7 @@ class WholeFoodsCoop extends Component {
     constructor(props) {
         super(props);
         this.state = {page: 'home'};
+        this.goPage = this.goPage.bind(this);
     }
 
     componentWillUnmount() {
@@ -55,28 +56,12 @@ class WholeFoodsCoop extends Component {
         PushNotificationIOS.requestPermissions(); 
     }
 
-    goHome() {
-        this.setState({page: 'home'});
-    }
-
-    goLoc() {
-        this.setState({page: 'loc'});
-    }
-
-    goAds() {
-        this.setState({page: 'ads'});
-    }
-    
-    goMenu() {
-        this.setState({page: 'menu'});
-    }
-
     goPage(p) {
         this.setState({page:p});
     }
 
     render() {
-        var main;
+        let main;
         if (this.state.page == 'loc') {
             main = <PageLocations />
         } else if (this.state.page == 'ads') {
@@ -88,7 +73,7 @@ class WholeFoodsCoop extends Component {
         } else {
             main = <PageHome />
         }
-        var {width, length} = Dimensions.get('window');
+        const {width, length} = Dimensions.get('window');
 
         return (
           <View style={styles.container}>
@@ -96,13 +81,7 @@ class WholeFoodsCoop extends Component {
                 {main}
             </View>
             <View style={{position: "absolute", bottom: 0, height: 65, backgroundColor: settings.theme.navColor, width: width}}>
-                <NavBar 
-                    home={this.goHome.bind(this)} 
-                    loc={this.goLoc.bind(this)} 
-                    ads={this.goAds.bind(this)} 
-                    menu={this.goMenu.bind(this)} 
-                    page={this.goPage.bind(this)}
-                />
+                <NavBar page={this.goPage} />
             </View>
           </View>
         );

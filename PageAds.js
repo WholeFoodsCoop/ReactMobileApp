@@ -15,7 +15,7 @@ import ProgressBar from 'react-native-progress/Bar';
 
 import settings from './settings.json';
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     backBtn: {
         fontSize: 20
     },
@@ -34,13 +34,16 @@ export default class PageAds extends Component {
             level: 'top',
             currentList: []
         };
+        this.goToTop = this.goToTop.bind(this);
+        this.reOrient = this.reOrient.bind(this);
+        this.renderImg = this.renderImg.bind(this);
     }
 
     getImagesAsync() {
         return fetch(settings.sales.apiURL)
             .then((response) => response.json())
             .then((responseJSON) => {
-                var covers = responseJSON.map((imgs) => imgs[0]);
+                const covers = responseJSON.map((imgs) => imgs[0]);
                 this.setState({
                     dataSource: this.ds.cloneWithRows(covers),
                     images: responseJSON,
@@ -61,7 +64,7 @@ export default class PageAds extends Component {
           re-rendering the ListView so swap in an
           empty list then the current list again
         */
-        var cur = this.state.currentList;
+        const cur = this.state.currentList;
         this.setState({
             dataSource: this.ds.cloneWithRows([])
         });
@@ -71,7 +74,7 @@ export default class PageAds extends Component {
     }
 
     goToTop() {
-        var covers = this.state.images.map((i) => i[0]);
+        const covers = this.state.images.map((i) => i[0]);
         this.setState({
             dataSource: this.ds.cloneWithRows(covers),
             level: 'top',
@@ -80,10 +83,10 @@ export default class PageAds extends Component {
     }
 
     goDownLevel(url) {
-        var list = ['Go Back'];
-        for (var i=0; i<this.state.images.length; i++) {
+        let list = ['Go Back'];
+        for (let i=0; i<this.state.images.length; i++) {
             if (this.state.images[i][0] == url) {
-                for (var j=0; j<this.state.images[i].length; j++) {
+                for (let j=0; j<this.state.images[i].length; j++) {
                     list.push(this.state.images[i][j]);
                 }
             }
@@ -99,7 +102,7 @@ export default class PageAds extends Component {
     textToIcon(text) {
         if (text == 'Go Back') {
             return (
-                <TouchableHighlight onPress={this.goToTop.bind(this)}>
+                <TouchableHighlight onPress={this.goToTop}>
                     <View style={{flex: 1, flexDirection: 'row'}}>
                         <Icon name="chevron-left" size={20} />
                         <Text style={styles.backBtn}> {text}</Text>
@@ -116,9 +119,9 @@ export default class PageAds extends Component {
     } 
 
     renderImg(url) {
-        var {width, height} = Dimensions.get('window');
-        var w = width - 50;
-        var h = Math.round(w * (11.0/8.5));
+        const {width, height} = Dimensions.get('window');
+        const w = width - 50;
+        const h = Math.round(w * (11.0/8.5));
         if (url.substring(0,4) == 'http' && this.state.level == 'top') {
             return (
                 <TouchableHighlight onPress={() => this.goDownLevel(url)} style={{marginBottom: 5}}>
@@ -149,10 +152,10 @@ export default class PageAds extends Component {
     render() {
         return (
             <View style={{flex: 1, alignItems: 'center'}}
-                onLayout={this.reOrient.bind(this)}>
+                onLayout={this.reOrient}>
                 <ListView
                     dataSource={this.state.dataSource}
-                    renderRow={this.renderImg.bind(this)}
+                    renderRow={this.renderImg}
                     enableEmptySections={true}
                     automaticallyAdjustContentInsets={false}
                 />
