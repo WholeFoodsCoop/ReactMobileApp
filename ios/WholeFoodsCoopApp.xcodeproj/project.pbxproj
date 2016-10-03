@@ -449,6 +449,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 2MF9C3B8EH;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -755,7 +760,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = coop.wholefoods.app;
 				PRODUCT_NAME = WholeFoodsCoopApp;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "61282df5-dcc3-45a3-a44b-9bd70c287d60";
 			};
 			name = Debug;
 		};
@@ -783,7 +788,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = coop.wholefoods.app;
 				PRODUCT_NAME = WholeFoodsCoopApp;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "61282df5-dcc3-45a3-a44b-9bd70c287d60";
 			};
 			name = Release;
 		};
